@@ -125,16 +125,14 @@ Save and exit.
 ### Step 7: Start and Test NUT Services
 Now it's time to start the services and ensure they work correctly.
 
-Start the NUT driver and server:
+Start the NUT server:
 ```
-rc-service nut-driver start
-rc-service nut-server start
+rc-service nut-upsd start
 ```
 
-Enable the services to start on boot:
+Enable the service to start on boot:
 ```
-rc-update add nut-driver default
-rc-update add nut-server default
+rc-update add nut-upsd default
 ```
 
 Test the connection to the UPS. Run the upsc (UPS Client) command:
@@ -228,7 +226,7 @@ Edit the snmpd.conf file:
 ```
 nano /etc/snmp/snmpd.conf
 ```
-Configure a read-only community string. Replace your_community_string with a secure, private string that your monitoring system will use. Add this near the top of the file.
+Scroll down to find an existing entry of ```rocommunity``` and comment it out using '#' and add the following below it. Configure a read-only community string. Replace your_community_string with a secure, private string that your monitoring system will use.
 ```
 rocommunity your_community_string
 ```
@@ -341,7 +339,7 @@ sudo nano /etc/nut/nut.conf
 
 Find the MODE line and set it to slave:
 ```
-MODE=slave
+MODE=netclient
 ```
 Save and exit the editor (Ctrl+X, then Y, then Enter).
 
@@ -356,13 +354,13 @@ Scroll to the end of the file and add a MONITOR line. This line defines the remo
 
 Add the following line, replacing your_pi_ip and your_secure_password with the actual values from your server setup:
 ```
-MONITOR UPS-Central01@your_pi_ip 1 monitor your_secure_password slave
+MONITOR UPS-Central01@your_pi_ip 1 monitor your_secure_password primary
 ```
 - UPS-Central01@your_pi_ip: Specifies the UPS name and the IP address of your NUT server.
 - 1: Is the powervalue, which is standard for a single UPS system.
 - monitor: The username you created on the server.
 - your_secure_password: The password for the monitor user.
-- slave: Indicates this is a client machine.
+- primary: Indicates that this is the primary power supply.
 Save and exit the editor.
 
 ### Step 4: Start and Test the NUT Client Service
@@ -372,8 +370,8 @@ Start the NUT client service:
 
 For Alpine Linux:
 ```
-# The service is named 'nut-client' in Alpine
-rc-service nut-client start
+# The service is named 'nut-upsmon' in Alpine
+rc-service nut-upsmon start
 ```
 
 For Debian/Ubuntu/Fedora/CentOS:
@@ -386,7 +384,7 @@ Enable the service to start on boot:
 
 For Alpine Linux:
 ```
-rc-update add nut-client default
+rc-update add nut-upsmon default
 
 # Save with LBU
 lbu commit -d
