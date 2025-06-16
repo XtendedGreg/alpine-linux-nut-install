@@ -1,6 +1,7 @@
 # Alpine Linux NUT and SNMP Installation on Raspberry Pi
 - NUT and SNMP install on Alpine Linux on Raspberry Pi Instructions
-- As seen on the XtendedGreg YouTube Live Stream: 
+- As seen on the XtendedGreg YouTube Live Stream: [XtendedGreg Youtube stream](https://youtube.com/live/aMOPM6Cjz0w).
+[![Watch the video](https://img.youtube.com/vi/aMOPM6Cjz0w/maxresdefault.jpg)](https://youtube.com/live/aMOPM6Cjz0w)
 
 # Server Side
 ## Description
