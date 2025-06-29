@@ -122,7 +122,7 @@ Add a user definition. Replace your_secure_password with a strong password of yo
 ```
 [monitor]
     password = your_secure_password
-    upsmon slave
+    upsmon primary
 ```
 Save and exit.
 
